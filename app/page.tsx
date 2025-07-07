@@ -1,29 +1,16 @@
 'use client'
-import { User } from '@/types'
-import { useEffect, useState } from 'react'
 
 export default function HomePage() {
-	const [user, setUser] = useState<User | null>(null)
-
-	useEffect(() => {
-		const tgUser = window.Telegram.WebApp.initDataUnsafe?.user
-
-		if (tgUser) {
-			fetch('http://localhost:8000/api/users/telegram-auth', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(tgUser),
-			})
-				.then(res => res.json())
-				.then(data => setUser(data))
-		}
-	}, [])
-
-	if (!user) return <p>Yuklanmoqda...</p>
-
-	return user.role === 'TEACHER' ? (
-		<a href='/teacher'>Oqituvchilar paneli</a>
-	) : (
-		<a href='/pupil'>Oquvchilar paneli</a>
+	return (
+		<main className='min-h-screen flex items-center justify-center p-6'>
+			<a
+				href='https://t.me/edu_system_webbot?start=webapp'
+				target='_blank'
+				rel='noopener noreferrer'
+				className='bg-blue-600 text-white px-6 py-3 rounded-xl shadow-md hover:bg-blue-700 transition'
+			>
+				Open in Telegram WebApp
+			</a>
+		</main>
 	)
 }
